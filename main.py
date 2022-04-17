@@ -1,6 +1,11 @@
 from typing import Optional
-
 from fastapi import FastAPI
+from airtable import airtable
+
+at = airtable.Airtable('BASE_ID', 'API_KEY')
+
+
+at.get('TABLE_NAME')
 
 app = FastAPI()
 
