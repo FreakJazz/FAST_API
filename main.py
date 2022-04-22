@@ -18,8 +18,7 @@ AIRTABLE_API_KEY=os.environ.get("API_KEY")
 AIRTABLE_TABLE_NAME=os.environ.get("TABLE_NAME")
 
 # SQLALCHEMY_DATABASE_URL = f'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
-SQLALCHEMY_DATABASE_URL = f"airtable:///?APIKey={AIRTABLE_API_KEY};BaseId={AIRTABLE_BASE_ID}&TableNames=TableA,...&ViewNames=TableA.ViewA,..."
-
+SQLALCHEMY_DATABASE_URL = f"airtable://:keyXXXX@appYYY?peek_rows=10&tables=tableA&tables=tableB"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True, future=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
