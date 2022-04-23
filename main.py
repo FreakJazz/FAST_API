@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from airtable import airtable
 from dotenv import load_dotenv, dotenv_values
+import requests
 from schemas import User
 
 load_dotenv()
@@ -19,16 +20,6 @@ app = FastAPI(title= 'Test-app',
                 description= 'CRUD API WITH AIRTABLE AND FAST API',
                 version='1.0.0')
 
-
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 # data class
 class Data(BaseModel):
     name: str
@@ -39,9 +30,35 @@ class Data(BaseModel):
 
 @app.post('/api/user/')
 async def create_user(user: User):
+    
+
+    headers = {
+    "Authorization": f"Bearer {AIRTABLE_API_KEY}",
+    "Content-Type": "application/json"
+    }
+    data = {
+    "records": [
+    {
+    "fields": {
+        "Name": user.Name, 
+        "LastName": user.LastName,
+        "Email": user.Email,
+        "Cellphone": user.Cellphone,
+        "Birthday": user.Birthday,
+        "Sex": user.Sex,
+        "Adress": user.Adress,
+        "State": user.State
+    }
+    }
+    ]
+    }
+            
+
+    r = requests.post(endpoint, json=data, headers=headers)
 
 
     return user
+
 
 @app.get('/')
 async def root():

@@ -7,9 +7,9 @@ class User(BaseModel):
     Name: str
     LastName: str
     Email: str
-    Cellphone: int
+    Cellphone: str
     # Para que los campos sean opcionales al momento de ingresar
-    Birthday: Optional[date] = None
+    Birthday: Optional[str] = None
     Sex: str
     Adress: str
     State: bool
