@@ -15,6 +15,8 @@ AIRTABLE_TABLE_NAME=os.environ.get("TABLE_NAME")
 
 endpoint = f'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
 
+endpoint_get = f'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/User'
+
 # 
 app = FastAPI(title= 'Test-app',
                 description= 'CRUD API WITH AIRTABLE AND FAST API',
@@ -60,7 +62,17 @@ async def create_user(user: User):
     return user
 
 
-@app.get('/')
-async def root():
-    return {'message': 'Hello World!'}
+@app.get('/api/users')
+async def get_user(data):
+
+    headers = {
+    "Authorization": f"Bearer {AIRTABLE_API_KEY}",
+    }
+
+    r = requests.get(endpoint_get, json=data ,headers=headers)
+
+    
+    print(data)
+
+    return "r.json"
 
